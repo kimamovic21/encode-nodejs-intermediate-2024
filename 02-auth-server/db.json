@@ -1,9 +1,14 @@
 {
-    "users": [
-        {
-            "name": "kerim",
-            "email": "kerim@gmail.com",
-            "password": "$2b$10$yVLStCIn74fU.O1kYeSr4O5rjmK2xYKfYO/pXt1836RVSOHXjdCzW"
-        }
-    ]
+	"users": [
+		{
+			"name": "kerim",
+			"email": "kerim@gmail.com",
+			"password": "$2b$10$yVLStCIn74fU.O1kYeSr4O5rjmK2xYKfYO/pXt1836RVSOHXjdCzW"
+		},
+		{
+			"name": "haris",
+			"email": "haris@gmail.com",
+			"password": "$2b$10$JLIXYqQMwKOWYJxooqDpBuu4KDsChw46IlDIuOb2Ukuj7yco2ER1K"
+		}
+	]
 }

@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { JWT_KEY } from '../config.js';
+import 'dotenv/config';
+
+const JWT_KEY = process.env.JWT_KEY;
 
 export const register = async (req, res) => {
     const user = req.body;
@@ -45,7 +47,7 @@ export const login = async (req, res) => {
 
         if (!user) {
             return res.status(404).send('User not found!');
-        }
+        };
 
         const isPasswordMatch = await bcrypt.compare(password, user.password);
 
@@ -56,26 +58,27 @@ export const login = async (req, res) => {
             };
             const token = await jwt.sign(payload, JWT_KEY, { expiresIn: 60*60 });
 
-            // return res.status(200).send('Login successfull!');
             return res.status(200).send({ jwt: token });
         } else {
             return res.status(401).send('Wrong email or password!');
-        }
+        };
     } catch (error) {
         res.status(500).send('Something went wrong!');
     };
 };
 
 export const privateEndpoint = async (req, res) => {
-    // console.log(req.headers);
     const token = req.headers['authorization'];
-    // console.log(token);
+
+    if (!token) {
+        return res.status(401).send('Unauthorized');
+    };
 
     try {
         const payload = await jwt.verify(token, JWT_KEY);
-        console.log(payload);
-        res.send('Token valid');
+        return res.status(200.).send('Verified');
+        
     } catch (error) {
-        res.status(401).send('Unauthorized');
-    }
+        return res.status(401.).send('Something went wrong');      
+    };
 };
