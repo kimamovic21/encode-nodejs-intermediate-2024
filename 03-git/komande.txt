@@ -1,0 +1,42 @@
+Osnove GIT-a
+
+GIT komande
+
+git init [repository name]
+git clone [url]
+gid add [file]
+git commit -m "[Type in the commit message]"
+git reset [file]
+git status
+git checkout -b [branch name] (-b only for new branch)
+git merge [branch name]
+git push origin [branch name]
+git pull origin [branch name] (git pull alone pulls everything from repo)
+
+
+Flow primjer
+-git clone
+-ispratiti README.md instrukcije
+-git checkout -b [branch name] (git checkout -b feature/login)
+-git add . (tack dodaje sve file-ove u tom direktoriju)
+-git commit -m "Implemented login feature"
+-git push origin feature/login
+-Odete na svoj repo i kreirajte Pull Request (PR), zatim cekate da vam neko iz tima odobri (Approve)
+-Merge kada dobijete Approve
+-git checkout master
+-git pull origin master (da imate najnovije izmjene)
+
+
+Kako instalirati i konfigurisati GIT
+
+-otvoriti link i preuzeti GIT: https://git-scm.com/downloads
+-instalirati GIT Version Control System
+-provjeriti verziju GIT-a sa komandom u terminalu: git --version
+-otvorimo www.github.com i kreiramo racun
+-kreiramo novi repozitorij
+
+
+PRIMJER
+
+
+Q&A
