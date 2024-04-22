@@ -1,0 +1,24 @@
+Bookstore App
+
+-provjerimo verziju Nodejs-a u terminalu sa komandom node -v
+-kreiramo folder final-project sa komandom u terminalu mkdir final-project
+-pristupimo folderu sa komandom cd final-project
+-ukucamo komandu npm init da inicijaliziramo package.json fajl
+-kreiramo .gitignore fajl da sprijecimo push node_modules foldera i .env fajla na Github
+-kreiramo .env i example .env fajl
+-instaliramo pakete Nodemon, Express, Mongoose, Body Parser, Dotenv
+-kreiramo index.js fajl
+-inicijaliziramo Nodejs Express aplikaciju
+-u package.json fajl dodamo property "start": "nodemon index.js"
+-dodamo property "type": "module"
+-kreiramo foldere controllers, models, routes
+-u folderu controllers kreiramo bookController.js fajl
+-u folderu models kreiramo Book.js fajl
+-u folderu routes kreiramo bookRoutes.js fajl
+-u bookController.js fajlu kreiramo pet funkcija: getAllBooks, createBook, getBookById, updateBook, deleteBook, buyBook 
+-u Book.js fajlu kreiramo Mongoose model Book
+-u bookRoutes.js fajlu kreiramo rute sa HTTP metodama GET, POST, PUT i DELETE 
+-u index.js fajlu kreiramo funkciju connectToDb() 
+-kreiramo metodu app.use('/api/books', bookRoutes)
+-kreiramo metodu app.use(bodyParser.json())
+-importujemo paket Dotenv import 'dotenv/config' da mozemo koristiti varijable iz .env fajla
