@@ -22,3 +22,17 @@ Bookstore App
 -kreiramo metodu app.use('/api/books', bookRoutes)
 -kreiramo metodu app.use(bodyParser.json())
 -importujemo paket Dotenv import 'dotenv/config' da mozemo koristiti varijable iz .env fajla
+-u folderu controllers kreiramo fajlove authController.js i userController.js
+-u folderu models kreiramo User.js fajl
+-u authController.js fajlu kreiramo funkcije: registerUser i loginUser
+-u userController.js fajlu kreiramo funkcije: getAllUsers, getUserById, updateUser, deleteUser
+-u terminalu instaliramo bakete Bcrypt i Json Web Token
+-u folderu routes kreiramo fajlove authRoutes.js i userRoutes.js
+-u authRoutes.js fajl importujemo funkcije: registerUser i loginUser
+-kreiramo rute sa metodom POST za funkcije registerUser i loginUser
+-u userRoutes.js fajl importujemo funkcije: getAllUsers, getUserById, updateUser, deleteUser
+-kreiramo rute sa metodoma GET, PUT i DELETE za importovane funkcije
+-u index.js fajl importujemo rute authRoutes i userRoutes
+-kreiramo dvije metode app.use('/api/auth', authRoutes) i app.use('/api/users', userRoutes)
+-u .env fajlu je potrebno kreirati varijablu JWT_SECRET
+-u example.env fajlu je dodana varijabla JWT_SECRET kao primjer da ju je potrebno dodati u projekt
