@@ -9,13 +9,13 @@ export const getAllBooks = async (req, res) => {
 
 
 export const createBook = async (req, res) => {
-    const book = new Book(req.body);
+    const book = new Book({ ...req.body, seller: req.user.id});
 
     try {
         await book.save();
-        res.status(201).send(book);
+        return res.status(201).send(book);
     } catch (error) {
-        res.status(500).send('Could not save book');
+        return res.status(500).send('Could not save book');
     };
 };
 
@@ -27,12 +27,12 @@ export const getBookById = async (req, res) => {
         const book = await Book.findById(id);
 
         if (book) {
-            res.status(200).send(book);
+            return res.status(200).send(book);
         } else {
-            res.status(404).send(`Could not find book with id: ${id} `);
+            return res.status(404).send(`Could not find book with id: ${id}`);
         };
     } catch (error) {
-        res.status(404).send('Something went wrong. Please try again!');
+        return res.status(500).send('Something went wrong. Please try again!');
     };
 };
 
@@ -41,10 +41,15 @@ export const updateBook = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const updatedBook = await Book.findByIdAndUpdate(id, req.body);
-        res.status(200).send(updatedBook);
+        const updatedBook = await Book.findOneAndUpdate({ _id: id, seller: req.user.id }, req.body);
+
+        if (updatedBook) {
+            return res.status(200).send('Book successfully updated!');
+         } else {
+            return res.status(404).send(`Could not update book with id: ${id}`);
+         };
     } catch (error) {
-        res.status(404).send(`Could not find book with id: ${id} `);
+        res.status(500).send('Something went wrong. Please try again!');
     };
 };
 
@@ -53,10 +58,15 @@ export const deleteBook = async (req, res) => {
     const { id } = req.params;
 
     try {
-        await Book.findByIdAndDelete(id);
-        res.status(204).send();
+        const deletedBook = await Book.findOneAndDelete({ _id: id, seller: req.user.id });
+
+        if (deletedBook) {
+            return res.status(204).send();
+        } else {
+            return res.status(404).send(`Could not delete book with id: ${id}`);
+        };
     } catch (error) {
-        res.status(500).send(`Could not delete book with id: ${id}!`);
+        return res.status(500).send('Something went wrong. Please try again!');
     };
 };
 
@@ -65,11 +75,15 @@ export const buyBook = async (req, res) => {
     const { id } = req.params;
 
     try {
-        await Book.findByIdAndUpdate(id, { sold: true });
-    
-        res.status(200).send(`Book with ${id} bought successfully!`);
-    }
-    catch (error) {
-        res.status(500).send('Could not buy book!');
+        const book = await Book.findById(id);
+        
+        if (book.seller !== req.user.id) {
+            await Book.findByIdAndUpdate(id, { sold: true });
+            return res.status(200).send('Book bought successfully!');
+        } else {
+            return res.status(403).send('Cannot buy your own book!');
+        };
+    } catch (error) {
+        return res.status(500).send('Something went wrong. Please try again!');
     };
 };

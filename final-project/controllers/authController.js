@@ -19,9 +19,9 @@ export const registerUser = async (req, res) => {
 
     try {
         const result = await user.save();
-        res.status(201).send(result);
+        return res.status(201).send(result);
     } catch (error) {
-        res.status(500).send('Could not create user!');
+        return res.status(500).send('Could not create user!');
     };
 };
 
@@ -45,12 +45,13 @@ export const loginUser = async (req, res) => {
                 email: user.email
             };
 
-            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 60 * 60 });
-            res.status(200).send({ token });
+            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '30d' });
+            
+            return res.status(200).send({ token });
         } else {
             return res.status(401).send('Wrong credentials!');
         };
     } catch(error) {
-        res.status(500).send('Something went wrong');
+        return res.status(500).send('Something went wrong');
     };
 };

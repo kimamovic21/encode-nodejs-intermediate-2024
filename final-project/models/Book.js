@@ -7,6 +7,7 @@ const bookSchema = new mongoose.Schema({
     description: String,
     price: Number,
     image: String, 
+    seller: String,
     sold: { type: Boolean , default: false },
     created: { type: Date, default: Date.now },
 });

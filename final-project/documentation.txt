@@ -36,3 +36,8 @@ Bookstore App
 -kreiramo dvije metode app.use('/api/auth', authRoutes) i app.use('/api/users', userRoutes)
 -u .env fajlu je potrebno kreirati varijablu JWT_SECRET
 -u example.env fajlu je dodana varijabla JWT_SECRET kao primjer da ju je potrebno dodati u projekt
+-kreiran folder middlewares i authMiddleware.js fajl
+-u authMiddleware.js fajlu kreiramo funkciju i eksportujemo kao default funkciju verify()
+-u fajlove userRoutes.js i authRoutes.js importujemo funkciju verify kao funkciju authMiddleware
+-u .env fajlu kreiramo varijablu MONGO_URI
+-u index.js fajlu kreiramo varijablu const MONGO_URI
