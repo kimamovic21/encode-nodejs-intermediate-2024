@@ -5,6 +5,7 @@ import 'dotenv/config';
 import User from "../models/User.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const SALT_ROUNDS = process.env.SALT_ROUNDS;
 
 export const registerUser = async (req, res) => {
     const data = req.body;
@@ -14,7 +15,7 @@ export const registerUser = async (req, res) => {
         return res.status(403).send('User with that email already exists!');
     };
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
     data.password = hashedPassword;
 
     const user = new User(req.body);
