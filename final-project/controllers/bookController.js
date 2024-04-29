@@ -9,14 +9,18 @@ export const getAllBooks = async (req, res) => {
 
 
 export const createBook = async (req, res) => {
-    const book = new Book({ ...req.body, seller: req.user.id});
+    const { title, publicationYear, author, description, price } = req.body;
+    const image = req.file ? req.file.path : null;
+    const seller = req.user.id; 
 
     try {
+        const book = new Book({ title, publicationYear, author, description, price, image, seller });
+
         await book.save();
         return res.status(201).send(book);
     } catch (error) {
         return res.status(500).send('Could not save book');
-    };
+    }
 };
 
 
@@ -39,18 +43,26 @@ export const getBookById = async (req, res) => {
 
 export const updateBook = async (req, res) => {
     const { id } = req.params;
-
+    const { title, publicationYear, author, description, price } = req.body;
+    
     try {
-        const updatedBook = await Book.findOneAndUpdate({ _id: id, seller: req.user.id }, req.body);
+        const image = req.file.path ? req.file.path : null;
+        const userId = req.user.id;
+        
+        const updatedBook = await Book.findOneAndUpdate(
+            { _id: id, seller: userId }, 
+            { title, publicationYear, author, description, price, image }, 
+            { new: true }
+        );
 
         if (updatedBook) {
-            return res.status(200).send('Book successfully updated!');
-         } else {
+            return res.status(200).send(updatedBook);
+        } else {
             return res.status(404).send(`Could not update book with id: ${id}`);
-         };
+        }
     } catch (error) {
-        res.status(500).send('Something went wrong. Please try again!');
-    };
+        return res.status(500).send('Something went wrong. Please try again!');
+    }
 };
 
 
