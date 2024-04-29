@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import 'dotenv/config';
+
 import User from "../models/User.js";
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const registerUser = async (req, res) => {
     const data = req.body;
@@ -43,7 +47,7 @@ export const loginUser = async (req, res) => {
                 email: user.email
             };
 
-            const token = jwt.sign(payload, 'SUPERKEY123', { expiresIn: 60 * 60 });
+            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: 60 * 60 });
             res.status(200).send({ token });
         } else {
             return res.status(401).send('Wrong credentials!');

@@ -1,4 +1,7 @@
 import jwt from 'jsonwebtoken';
+import 'dotenv/config';
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const verify = async (req, res, next) => {
     const { token } = req.headers;
@@ -8,7 +11,7 @@ const verify = async (req, res, next) => {
     };
 
     try {
-        const decoded = jwt.verify(token, 'SUPERKEY123');
+        const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
         next();
     } catch (error) {
