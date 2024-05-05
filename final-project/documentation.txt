@@ -41,3 +41,8 @@ Bookstore App
 -u fajlove userRoutes.js i authRoutes.js importujemo funkciju verify kao funkciju authMiddleware
 -u .env fajlu kreiramo varijablu MONGO_URI
 -u index.js fajlu kreiramo varijablu const MONGO_URI
+-u terminalu instaliramo paket Colors sa komandom npm i colors
+-kreiramo foldere config i helpers
+-u folderu config kreiramo connectToDb.js fajl za povezivanje za Mongo DB
+-u folderu helpers kreiramo jwtKey.js fajl za generisanje jwt tokena 
+-u index.js fajl importujemo funkciju connectToDb 

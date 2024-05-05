@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 
 export const getAllUsers = async (req, res) => {
-    const users = await User.find({ });
+    const users = await User.find({ }).select('-__v -password');
 
     res.status(200).send(users);
 };
@@ -10,7 +10,7 @@ export const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
         
-        const user = await User.findById(id);
+        const user = await User.findById(id).select('-__v -password');
 
         if (!user) {
             return res.status(404).send('User not found!');
@@ -29,7 +29,7 @@ export const updateUser = async (req, res) => {
         const user = req.body;
 
         if (id === req.user.id) {
-            const updatedUser = await User.findByIdAndUpdate(id, user);
+            const updatedUser = await User.findByIdAndUpdate(id, user).select('-__v -password');
 
             if (updatedUser) {
                return res.status(200).send('User updated successfully');
