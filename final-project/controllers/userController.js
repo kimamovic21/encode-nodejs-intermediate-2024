@@ -1,10 +1,12 @@
 import User from "../models/User.js";
 
+
 export const getAllUsers = async (req, res) => {
     const users = await User.find({ }).select('-__v -password');
 
     res.status(200).send(users);
 };
+
 
 export const getUserById = async (req, res) => {
     try {
@@ -21,6 +23,7 @@ export const getUserById = async (req, res) => {
         return res.status(500).send('Something went wrong. Please try again!');
     };
 };
+
 
 export const updateUser = async (req, res) => {
     const { id } = req.params;
@@ -41,6 +44,7 @@ export const updateUser = async (req, res) => {
         return res.status(500).send('Something went wrong. Please try again!');
     };
 };
+
 
 export const deleteUser = async (req, res) => {
     const { id } = req.params;

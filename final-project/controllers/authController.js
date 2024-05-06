@@ -1,8 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import User from "../models/User.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES = process.env.JWT_EXPIRES;
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
+
 
 export const registerUser = async (req, res) => {
     const data = req.body;
@@ -12,7 +16,7 @@ export const registerUser = async (req, res) => {
         return res.status(403).send('User with that email already exists!');
     };
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
     data.password = hashedPassword;
 
     const user = new User(req.body);
@@ -24,6 +28,7 @@ export const registerUser = async (req, res) => {
         return res.status(500).send('Could not create user!');
     };
 };
+
 
 export const loginUser = async (req, res) => {
     try {
@@ -45,7 +50,7 @@ export const loginUser = async (req, res) => {
                 email: user.email
             };
 
-            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '30d' });
+            const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES });
             
             return res.status(200).send({ token });
         } else {

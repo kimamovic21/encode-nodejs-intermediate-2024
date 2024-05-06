@@ -62,7 +62,7 @@ export const updateBook = async (req, res) => {
         }
     } catch (error) {
         return res.status(500).send('Something went wrong. Please try again!');
-    }
+    };
 };
 
 

@@ -1,5 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import helmet from 'helmet';
+import cors from 'cors';
 import 'dotenv/config';
 
 import bookRoutes from './routes/bookRoutes.js';
@@ -12,6 +15,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
+app.use(morgan('tiny'));
+app.use(helmet());
+app.use(cors());
 
 connectToDb();
 
