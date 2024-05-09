@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node helpers/jwtKey.js",
+    "generateKey": "node helpers/jwtKey.js",
     "start": "nodemon index.js",
+    "dev": "cd db && migrate-mongo up && cd .. && nodemon index.js",
+    "revert": "cd db && migrate-mongo down && cd .. && nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kerim Imamovic",
@@ -20,6 +22,7 @@
     "express": "^4.19.2",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "migrate-mongo": "^11.0.0",
     "mongoose": "^8.3.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
