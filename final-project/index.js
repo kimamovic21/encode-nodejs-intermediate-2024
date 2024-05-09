@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
+import colors from 'colors';
 import 'dotenv/config';
 
 import bookRoutes from './routes/bookRoutes.js';
@@ -27,4 +28,4 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
 
-app.listen(PORT, () => console.log(`Example app listening on port: ${PORT}`));
+app.listen(PORT, () => console.log(colors.green(`Book Store App listening on port: ${PORT}`)));
