@@ -29,3 +29,5 @@ app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
 
 app.listen(PORT, () => console.log(colors.green(`Book Store App listening on port: ${PORT}`)));
+
+export default app;
