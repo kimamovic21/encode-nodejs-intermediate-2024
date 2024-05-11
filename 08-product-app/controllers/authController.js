@@ -1,8 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
 import User from '../models/User.js';
 
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const login = async (req, res) => {
     const { username, password } = req.body;
@@ -21,10 +23,12 @@ export const login = async (req, res) => {
             username: user.username,
             role: user.role,
         };
-        const token = jwt.sign(payload, 'KEY123');
+
+        const token = jwt.sign(payload,JWT_SECRET);
+
         res.cookie('token', token, { httpOnly: true });
-        res.send('Cookie sent!');
+        return res.status(200).send('Cookie sent!');
     } else {
-        return res.status(401).send('Invalid username or password');
+        return res.status(401).send('Invalid username or password!');
     };
 };
